@@ -195,7 +195,10 @@ class JobManagerActor(contextConfig: Config) extends InstrumentedActor {
       import scala.concurrent.duration._
       import scala.concurrent.Await
 
-      val daoAskTimeout = Timeout(3 seconds)
+      //To avoid Error: About to restart actor due to exception, Using 20s instand of 3s
+      //Issue https://github.com/spark-jobserver/spark-jobserver/issues/586
+      val daoAskTimeout = Timeout(20 seconds)
+
       // TODO: refactor so we don't need Await, instead flatmap into more futures
       val resp = Await.result(
         (daoActor ? JobDAOActor.GetLastUploadTime(appName))(daoAskTimeout).mapTo[JobDAOActor.LastUploadTime],

@@ -38,7 +38,7 @@ if [ "$?" != "0" ]; then
   exit 1
 fi
 
-FILES="job-server-extras/target/scala-$majorVersion/spark-job-server.jar
+FILES="job-server-extras/target/scala-$majorVersion/*.jar
        bin/server_start.sh
        bin/server_stop.sh
        bin/kill-process-tree.sh

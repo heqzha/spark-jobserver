@@ -166,7 +166,7 @@ object JobServerBuild extends Build {
   lazy val revolverSettings = Seq(
     javaOptions in reStart += jobServerLogging,
     // Give job server a bit more PermGen since it does classloading
-    javaOptions in reStart += "-XX:MaxPermSize=256m",
+    // javaOptions in reStart += "-XX:MaxPermSize=256m", no need for java8
     javaOptions in reStart += "-Djava.security.krb5.realm= -Djava.security.krb5.kdc=",
     // This lets us add Spark back to the classpath without assembly barfing
     fullClasspath in reStart := (fullClasspath in Compile).value,
@@ -236,5 +236,5 @@ object JobServerBuild extends Build {
 
   // This is here so we can easily switch back to Logback when Spark fixes its log4j dependency.
   lazy val jobServerLogbackLogging = "-Dlogback.configurationFile=config/logback-local.xml"
-  lazy val jobServerLogging = "-Dlog4j.configuration=config/log4j-local.properties"
+  lazy val jobServerLogging = "-Dlog4j.configuration=file:config/log4j-local.properties"
 }
